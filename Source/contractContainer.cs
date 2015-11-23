@@ -159,6 +159,24 @@ namespace ContractsWindow
 			contractPenalties(contract);
 		}
 
+		internal void updateFullParamInfo()
+		{
+			totalReward = contract.FundsCompletion;
+			foreach (ContractParameter param in contract.AllParameters)
+				totalReward += param.FundsCompletion;
+
+			//Clear out all existing parameters and regenerate new ones
+
+			paramList.Clear();
+			allParamList.Clear();
+
+			for (int i = 0; i < contract.ParameterCount; i++)
+			{
+				ContractParameter param = contract.GetParameter(i);
+				addContractParam(param, 0);
+			}
+		}
+
 		internal void updateParameterInfo()
 		{
 			foreach (parameterContainer pC in allParamList)
@@ -168,7 +186,7 @@ namespace ContractsWindow
 			}
 		}
 
-		internal void updateParemeterInfo(Type t)
+		internal void updateParameterInfo(Type t)
 		{
 			foreach (parameterContainer pC in allParamList)
 			{
@@ -224,8 +242,6 @@ namespace ContractsWindow
 				return ((BaseContract)contract).targetBody;
 			else if (t == typeof(ISRUContract))
 				return ((ISRUContract)contract).targetBody;
-			else if (t == typeof(RecordTrackContract))
-				return null;
 			else if (t == typeof(SatelliteContract))
 			{
 				SpecificOrbitParameter p = contract.GetParameter<SpecificOrbitParameter>();
@@ -233,7 +249,7 @@ namespace ContractsWindow
 				if (p == null)
 					return null;
 
-				return p.targetBody;
+				return p.TargetBody;
 			}
 			else if (t == typeof(StationContract))
 				return ((StationContract)contract).targetBody;
@@ -281,6 +297,11 @@ namespace ContractsWindow
 		public Contract Contract
 		{
 			get { return contract; }
+		}
+
+		public int ParameterCount
+		{
+			get { return allParamList.Count; }
 		}
 
 		public double TotalReward
