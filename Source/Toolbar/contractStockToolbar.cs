@@ -28,6 +28,7 @@ THE SOFTWARE.
 
 using System;
 using System.Collections;
+using KSP.UI.Screens;
 
 using UnityEngine;
 
@@ -97,14 +98,14 @@ namespace ContractsWindow.Toolbar
 
 			if (stockContracts != null)
 			{
-				stockContracts.toggleButton.onDisable();
+				stockContracts.onDisable();
 
-				stockContracts.toggleButton.onTrue = stockToolbarButton.toggleButton.onTrue;
-				stockContracts.toggleButton.onFalse = stockToolbarButton.toggleButton.onFalse;
-				stockContracts.toggleButton.onHover = stockToolbarButton.toggleButton.onHover;
-				stockContracts.toggleButton.onHoverOut = stockToolbarButton.toggleButton.onHoverOut;
-				stockContracts.toggleButton.onEnable = stockToolbarButton.toggleButton.onEnable;
-				stockContracts.toggleButton.onDisable = stockToolbarButton.toggleButton.onDisable;
+				stockContracts.onTrue = stockToolbarButton.onTrue;
+				stockContracts.onFalse = stockToolbarButton.onFalse;
+				stockContracts.onHover = stockToolbarButton.onHover;
+				stockContracts.onHoverOut = stockToolbarButton.onHoverOut;
+				stockContracts.onEnable = stockToolbarButton.onEnable;
+				stockContracts.onDisable = stockToolbarButton.onDisable;
 
 				ApplicationLauncher.Instance.DisableMutuallyExclusive(stockContracts);
 
